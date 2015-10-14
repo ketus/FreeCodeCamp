@@ -1,7 +1,10 @@
-var args = process.argv;
-var result = 0;
+var fs = require("fs");
+var endOfLine = require('os').EOL;
 
-for(var i = 2; i < args.length; i++){
-    result += Number(args[i]);
-}
+var args = process.argv;
+
+var content = fs.readFileSync(args[2]).toString();
+
+var result = content.split(endOfLine).length - 1;
+
 console.log(result);
