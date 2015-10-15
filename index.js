@@ -1,10 +1,12 @@
 var fs = require("fs");
-var endOfLine = require('os').EOL;
 
-var args = process.argv;
+var endOfLine = require('os').EOL;      // hold EOL independent from OS
+var buf = process.argv[2];              // get input array from node argument array 
 
-var content = fs.readFileSync(args[2]).toString();
+fs.readFile(buf, function(error, data) {
+    if (error) throw error;
+    var res = data.toString('UTF8');
+    console.log(res.split(endOfLine).length - 1);   
+    
+});
 
-var result = content.split(endOfLine).length - 1;
-
-console.log(result);
