@@ -1,23 +1,11 @@
-var endsWith = require("./helpers").endsWith;
-var fs = require("fs");
+var files = require("./listFiles");
 
-var pathName = process.argv[2].toString();     
-var extension = '.' + process.argv[3].toString();
+var pathName = process.argv[2].toString();
+var extension = process.argv[3];
 
-fs.readdir(pathName, function(err, files) {
-    if (err) {
-        console.error(err);    
-    } 
-    //console.log('unfiltered files:\n' + files);
-    var filesWithExt = files.filter(function (elem, i, arr) {
-        return elem.toString().endsWith(extension);
-    });
-    
-    //console.log('filtered files: \n' + filesWithExt);
-    
-    for (var el in filesWithExt) {
-        console.log(filesWithExt[el]);
-    }
+files(pathName, extension, function(err, data) {
+    if (err) throw err;
+    data.forEach(function(file) {
+        console.log(file);
+    })
 });
-
-
