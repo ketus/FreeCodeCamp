@@ -1,12 +1,23 @@
+var endsWith = require("./helpers").endsWith;
 var fs = require("fs");
 
-var endOfLine = require('os').EOL;      // hold EOL independent from OS
-var buf = process.argv[2];              // get input array from node argument array 
+var pathName = process.argv[2].toString();     
+var extension = '.' + process.argv[3].toString();
 
-fs.readFile(buf, function(error, data) {
-    if (error) throw error;
-    var res = data.toString('UTF8');
-    console.log(res.split(endOfLine).length - 1);   
+fs.readdir(pathName, function(err, files) {
+    if (err) {
+        console.error(err);    
+    } 
+    //console.log('unfiltered files:\n' + files);
+    var filesWithExt = files.filter(function (elem, i, arr) {
+        return elem.toString().endsWith(extension);
+    });
     
+    //console.log('filtered files: \n' + filesWithExt);
+    
+    for (var el in filesWithExt) {
+        console.log(filesWithExt[el]);
+    }
 });
+
 
