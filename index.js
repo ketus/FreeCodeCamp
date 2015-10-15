@@ -1,8 +1,15 @@
 var http = require("http");
 
+var data = '';
+
 http.get(process.argv[2], function(res) {
     res.on('data', function(chunk) {
-      console.log(chunk.toString());
+      data += chunk;
+    });
+
+    res.on('end', function() {
+        console.log(data.length);
+        console.log(data);
     });
     
 }).on('error', function(e) {
