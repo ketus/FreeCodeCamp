@@ -1,11 +1,10 @@
-var files = require("./listFiles");
+var http = require("http");
 
-var pathName = process.argv[2].toString();
-var extension = process.argv[3];
-
-files(pathName, extension, function(err, data) {
-    if (err) throw err;
-    data.forEach(function(file) {
-        console.log(file);
-    })
+http.get(process.argv[2], function(res) {
+    res.on('data', function(chunk) {
+      console.log(chunk.toString());
+    });
+    
+}).on('error', function(e) {
+  console.log("Got error: " + e.message);
 });
