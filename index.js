@@ -1,20 +1,11 @@
-var net = require("net");
-var port = process.argv[2];
+var http = require("http");
+var fs = require("fs");
 
-var pad = function(el) {
-  return el < 10 ? '0' + el : el;
-}
+var readStream = fs.createReadStream(process.argv[3]);
 
-var server = net.createServer(function(socket){
-  var d = new Date();
-  var s = d.getFullYear() + "-"
-          + pad(d.getMonth() + 1) + "-"
-          + pad(d.getDate()) + " "
-          + pad(d.getHours()) + ":"
-          + pad(d.getMinutes()) + "\n";
-  socket.end(s);
+var server = http.createServer(function(req, res){
+     readStream.pipe(res); 
 });
 
+server.listen(process.argv[2]);
 
-
-server.listen(port);
