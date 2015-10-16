@@ -1,17 +1,20 @@
-var http = require("http");
+var net = require("net");
+var port = process.argv[2];
 
-var data = '';
+var pad = function(el) {
+  return el < 10 ? '0' + el : el;
+}
 
-http.get(process.argv[2], function(res) {
-    res.on('data', function(chunk) {
-      data += chunk;
-    });
-
-    res.on('end', function() {
-        console.log(data.length);
-        console.log(data);
-    });
-    
-}).on('error', function(e) {
-  console.log("Got error: " + e.message);
+var server = net.createServer(function(socket){
+  var d = new Date();
+  var s = d.getFullYear() + "-"
+          + pad(d.getMonth() + 1) + "-"
+          + pad(d.getDate()) + " "
+          + pad(d.getHours()) + ":"
+          + pad(d.getMinutes()) + "\n";
+  socket.end(s);
 });
+
+
+
+server.listen(port);
