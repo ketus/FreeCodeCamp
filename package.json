@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ketus/FreeCodeCamp/issues"
   },
-  "homepage": "https://github.com/ketus/FreeCodeCamp#readme"
+  "homepage": "https://github.com/ketus/FreeCodeCamp#readme",
+  "dependencies": {
+    "through2-map": "^2.0.0"
+  }
 }

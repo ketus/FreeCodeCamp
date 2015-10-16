@@ -1,10 +1,13 @@
 var http = require("http");
-var fs = require("fs");
-
-var readStream = fs.createReadStream(process.argv[3]);
+var map = require("through2-map");
 
 var server = http.createServer(function(req, res){
-     readStream.pipe(res); 
+  if (req.method === 'POST'){
+    var toUpper = req.pipe(map(function(chunk) {
+      return chunk.toString().toUpperCase();
+    }));
+  }
+  toUpper.pipe(res);
 });
 
 server.listen(process.argv[2]);
